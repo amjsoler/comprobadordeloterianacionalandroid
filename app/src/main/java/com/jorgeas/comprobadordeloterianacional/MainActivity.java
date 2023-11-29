@@ -8,8 +8,10 @@ import androidx.core.content.ContextCompat;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
                 if (isGranted) {
                     // FCM SDK (and your app) can post notifications.
                 } else {
-                    // TODO: Inform user that that your app will not show notifications.
+                    Toast.makeText(this, "Permite que te enviemos notificaciones para poder informarte de tus premios", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -30,13 +32,18 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
                     PackageManager.PERMISSION_GRANTED) {
+
+                Log.d("notification", "Hay permiso de notificaciones");
+
                 // FCM SDK (and your app) can post notifications.
             } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+                Log.d("notification", "Shouldshowrequestpermissionrationale");
                 // TODO: display an educational UI explaining to the user the features that will be enabled
                 //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
                 //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
                 //       If the user selects "No thanks," allow the user to continue without notifications.
             } else {
+                Log.d("notification", "else final ");
                 // Directly ask for the permission
                 requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS);
             }
@@ -47,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        askNotificationPermission();
 
         myWebView = new WebView(this);
         myWebView.getSettings().setJavaScriptEnabled(true);
