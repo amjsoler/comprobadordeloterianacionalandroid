@@ -1,4 +1,4 @@
-package com.jorgeas.comprobadordeloteranacional;
+package com.jorgeas.comprobadordeloterianacional;
 
 import org.junit.Test;
 

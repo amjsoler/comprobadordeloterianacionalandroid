@@ -1,4 +1,4 @@
-package com.jorgeas.comprobadordeloteranacional;
+package com.jorgeas.comprobadordeloterianacional;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.jorgeas.comprobadordeloteranacional", appContext.getPackageName());
+        assertEquals("com.jorgeas.comprobadordeloterianacional", appContext.getPackageName());
     }
 }

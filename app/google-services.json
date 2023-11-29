@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "669077163065",
+    "project_id": "comprobador-de-loteria",
+    "storage_bucket": "comprobador-de-loteria.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669077163065:android:b0782be640c686e7b991e8",
+        "android_client_info": {
+          "package_name": "com.jorgeas.comprobadordeloterianacional"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8a8ownnoKjuPMc_5zC9TygZBsrh_4omY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
