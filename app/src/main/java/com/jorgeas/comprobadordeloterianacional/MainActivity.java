@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         // Get new FCM registration token
                         firebaseToken = task.getResult();
 
-                        myWebView.loadUrl("http://192.167.1.106:8080?firebasetoken="+firebaseToken);
+                        myWebView.loadUrl("https://app.comprobadordeloterianacional.com?firebasetoken="+firebaseToken);
                     }
                 });
     }
