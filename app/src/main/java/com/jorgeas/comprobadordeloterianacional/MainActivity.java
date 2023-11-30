@@ -2,20 +2,40 @@ package com.jorgeas.comprobadordeloterianacional;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     WebView myWebView;
+    String firebaseToken = "";
 
     // Declare the launcher at the top of your Activity/Fragment:
     private final ActivityResultLauncher<String> requestPermissionLauncher =
@@ -50,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,7 +83,20 @@ public class MainActivity extends AppCompatActivity {
         myWebView.getSettings().setDomStorageEnabled(true);
         setContentView(myWebView);
 
-        myWebView.loadUrl("https://app.comprobadordeloterianacional.com");
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        firebaseToken = task.getResult();
+
+                        myWebView.loadUrl("http://192.167.1.106:8080?firebasetoken="+firebaseToken);
+                    }
+                });
     }
 
     @Override
