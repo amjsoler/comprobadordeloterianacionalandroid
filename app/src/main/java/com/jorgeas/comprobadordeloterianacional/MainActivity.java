@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
                         myWebView.loadUrl("https://app.comprobadordeloterianacional.com?firebasetoken="+firebaseToken);
                     }
                 });
+
+        FirebaseMessaging.getInstance().subscribeToTopic("general");
     }
 
     @Override
