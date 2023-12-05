@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
                             App.setFirebaseToken(task.getResult());
                         }
 
-                        //myWebView.loadUrl("https://app.comprobadordeloterianacional.com?firebasetoken="+firebaseToken);
-                        App.getWebView().loadUrl("http://192.167.1.102:8080?firebasetoken="+App.getFirebaseToken());
+                        App.getWebView().loadUrl("https://app.comprobadordeloterianacional.com?firebasetoken="+App.getFirebaseToken());
+                        //App.getWebView().loadUrl("http://192.167.1.102:8080?firebasetoken="+App.getFirebaseToken());
                     }
                 });
 
