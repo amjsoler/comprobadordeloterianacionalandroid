@@ -24,7 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
-    int permiso = -1;
+    boolean permiso = false;
 
     private ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("debug", "callback - granted");
                     // Permission is granted. Continue the action or workflow in your
                     // app.
-                    permiso = 1;
+                    permiso = true;
                 } else {
                     Log.d("debug", "callback - notgranted");
                     // Explain to the user that the feature is unavailable because the
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     // same time, respect the user's decision. Don't link to system
                     // settings in an effort to convince the user to change their
                     // decision.
-                    permiso = 0;
+                    permiso = false;
                 }
             });
 
@@ -89,25 +89,25 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public int solicitarPermisoNotificacionesPadre() {
+    public boolean solicitarPermisoNotificacionesPadre() {
         Log.d("debug", "solicitarPermiso");
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
             if (ContextCompat.checkSelfPermission(
                     App.getContext(), Manifest.permission.POST_NOTIFICATIONS) ==
                     PackageManager.PERMISSION_GRANTED) {
                 Log.d("debug", "solicitarPermiso - if");
-                permiso = 1;
+                permiso = true;
                 // You can use the API that requires the permission.
                 //requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             } else {
                 Log.d("debug", "solicitarPermiso - else");
                 // You can directly ask for the permission.
                 // The registered ActivityResultCallback gets the result of this request.
-                permiso = -1;
+                permiso = false;
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
         }else{
-            permiso = 1;
+            permiso = true;
         }
 
         return permiso;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     public class WebAppInterface {
         @JavascriptInterface
-        public int solicitarPermisoNotificaciones() {
+        public boolean solicitarPermisoNotificaciones() {
             solicitarPermisoNotificacionesPadre();
 
             return permiso;
